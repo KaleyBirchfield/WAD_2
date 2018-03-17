@@ -39,6 +39,7 @@ module DOND_Game
 
     g.start
     g.resetgame
+    g.showboxes
     @output.puts "\n"			#start + reset + new line ; MIGHT NEED TO REFERENCE
 
 
