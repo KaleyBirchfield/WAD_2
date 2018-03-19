@@ -15,7 +15,13 @@ module DOND_Game
     end
 
     def getinput
-      @input.gets.chomp.upcase
+      s = @input.gets
+      puts s
+      x = s.chomp
+      puts x
+      y = x.upcase
+      puts y
+      y
     end
 
     def storeguess(guess)
@@ -77,10 +83,10 @@ module DOND_Game
 
         if b == @chosenbox			#case - box chosen
           g = "*#{b}*"
-        elsif openedboxes[i] = 0	#case - closed
-          g = "[#{b}]"
-        else						#case - opened
+        elsif @selectedboxes	.include?(b)				#case - opened
           g = "|#{b}|"
+        else         #case - closed
+          g = "[#{b}]"
         end
         @output.print "#{g} "
       end
@@ -97,12 +103,11 @@ module DOND_Game
     end
 
     def removeamount(value)				#replace a value with big space
-      index = @sequence.index(value)
-      @sequence[index] = "    "
+      @sequence[value] = "----"
     end
 
     def setchosenbox(b)					#b - user input, to mark a box as chosen
-      @chosenbox = b
+      @chosenbox = b.to_i
     end
 
     def getchosenbox 					#to return chosen box to work with
@@ -118,7 +123,7 @@ module DOND_Game
     end
 
     def displaychosenboxprompt
-      @output.puts "Enter the number of the box you wish to keep."
+      @output.puts "\nEnter the number of the box you wish to keep."
     end
 
     def displaychosenboxerror
@@ -157,19 +162,35 @@ module DOND_Game
     end
 
     def displayselectboxprompt
-      @output.puts "Enter the number of the box you wish to open. Enter returns to menu."
+      @output.puts "\nEnter the number of the box you wish to open. Enter returns to menu."
     end
 
     def openbox(guess)
-      #why is this empty but still works? NEEDS TO BE CHECKED
+      box = guess.to_i
+      index = @sequence[box]
+      @output.puts "Value in box: #{index}"
+      @selectedboxes.push(box)
+      removeamount(box)
     end
 
     def bankerphoneswithvalue(offer)
       @output.puts "Banker offers you for your chosen box: #{offer}"
     end
 
-    def bankercalcsvalue(value)
-      offer = value/2
+    def bankercalcsvalue
+      value = rand(2..100000)
+      offers = value / 2
+      bankerphoneswithvalue(offers)
+    end
+
+    def dealornodealprompt
+      @output.puts "Do you accept this offer?"
+      end
+
+    def dealornodealresponse(answer)
+      if answer == "yes"
+
+      end
     end
 
     def numberofboxesclosed

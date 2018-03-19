@@ -39,7 +39,27 @@ module DOND_Game
 
     g.start
     g.resetgame
+    g.assignvaluestoboxes
     g.showboxes
+    g.displaychosenboxprompt
+    g.setchosenbox(g.getinput)
+    g.displaychosenbox
+    while g.selectedboxes.size < 20 do
+      g.showamounts
+      g.showboxes
+      g.displayselectboxprompt
+      g.openbox(g.getinput)
+      g.bankercalcsvalue
+      g.dealornodealprompt
+      if g.getinput == "NO"
+        next
+      elsif g.getinput == "YES"
+        g.displaychosenboxvalue
+      else
+        g.displaychosenboxerror
+      end
+    end
+    g.finish
     @output.puts "\n"			#start + reset + new line ; MIGHT NEED TO REFERENCE
 
 
