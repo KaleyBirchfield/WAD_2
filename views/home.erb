@@ -1,0 +1,92 @@
+<html>
+<head>
+<style type="text/css">
+	div.topbar {
+		height: 30px;
+		background-color:#EEEEEE;
+		position: absolute;
+		left: 50px;
+	}
+	div.navigation{
+		height: 30px;
+		width: 600px;
+		background-color:#EEEEEE;
+		position: absolute;
+		left: 50px;
+		top: 50px;
+	}
+	
+	div.content {
+		position: absolute;
+		top: 80px;
+		left: 50px;
+	}
+	
+	.menuitem {
+		width: 100px;
+		height: 30px;
+		float: left;
+		margin-left: 10px;
+		font-size: 110%
+	}
+	
+	div.article {
+		background-color: #EEEEEE;
+		padding: 10px 10px 40px 10px;
+		width: 600px;
+		float: left;
+	}
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="navigation">
+	<div class="menuitem"><a href="/"><b>Home</b></a></div>
+	<div class="menuitem"><a href="/about">About</a></div>
+	<% if $credentials %>
+	  <% if $credentials[0] != '' %>
+		<div class="menuitem"><a href="/logout">Logout</a></div>
+		<div class="menuitem"><a href="/profile">Profile</a></div>
+	  <% else %>
+		<div class="menuitem"><a href="/login">Login</a></div>
+	  <% end %>
+	<% else %>
+	   <div class="menuitem"><a href="/login">Login</a></div>
+	<% end %>
+	<br><br>
+</div>
+
+<div class="content">
+
+<h1>Deal Or No Deal</h1>
+
+
+<div class="article" >
+
+<p> <b>Pinned post:</b></p>
+<p>Welcome to the Journal of our WAD Project. Feel free to add your own posts to the journal to keep the record of collaborative work.</p>
+
+  <%= @info %>
+  <br><br><br>
+</div>
+
+<div id="addcontent">
+  <form action='/create'>
+    <input type="submit" value="New Game">
+  </form> </p>
+	<% if $credentials %>
+		<% if $credentials[0] != '' %>
+			<form action='/login'>
+				<input type="submit" value="Continue Playing">
+			</form> </p>
+</div>	
+	
+  <% end %>
+<% end %>
+</div>
+<br><br>
+
+</body>
+

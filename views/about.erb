@@ -1,0 +1,85 @@
+<html>
+<head>
+<style type="text/css">
+	div.topbar {
+		height: 30px;
+		background-color:#EEEEEE;
+		position: absolute;
+		left: 50px;
+	}
+	div.navigation{
+		height: 30px;
+		width: 600px;
+		background-color:#EEEEEE;
+		position: absolute;
+		left: 50px;
+		top: 50px;
+	}
+	
+	div.content {
+		position: absolute;
+		top: 80px;
+		left: 50px;
+	}
+	
+	.menuitem {
+		width: 100px;
+		height: 30px;
+		float: left;
+		margin-left: 10px;
+		font-size: 110%
+	}
+	
+	div.instructions {
+		background-color: #EEEEEE;
+		padding: 10px 10px 40px 10px;
+		width: 800px;
+		float: left;
+	}
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="navigation">
+	<div class="menuitem"><a href="/"><b>Home</b></a></div>
+	<div class="menuitem"><a href="/about">About</a></div>
+	<% if $credentials %>
+		<% if $credentials[0] != '' %>
+			<div class="menuitem"><a href="/logout">Logout</a></div>
+			<div class="menuitem"><a href="/profile">Profile</a></div>
+		<% else %>
+			<div class="menuitem"><a href="/login">Login</a></div>
+		<% end %>
+	<% else %>
+		<div class="menuitem"><a href="/login">Login</a></div>
+	<% end %>
+	<br><br>
+</div>
+
+<div class="content">
+<h1>About</h1>
+<h2>Welcom to Deal or No Deal!</h2>
+<p>Designed by: Jakub Kuncack & Kaley Birchfield</p>
+<p> Student ID: 51769065, 51767255 </p>
+
+	<div class="instructions" >
+
+		<h2>How to Play</h2>
+		<p>There are 22 boxes, each one containing a value ranging from a penny to a million dollars.<br><br>
+		 	Before the game begins,  choose the box you think has the highest amount. <br><br>
+			This box will remain closed until the end of the game.<br><br>
+			Then choose one of the remaining boxes to open and its value will be revealed.<br><br>
+		 	The banker will then offer you a certain amount for your unopened box.<br><br>
+			It is your decision whether or not you accept this deal.<br><br>
+		 	If you choose to decline,  you will then have to choose another box to open,  and the banker will offer another deal.<br><br>
+		 	This will continue until you accept the banker's offer or until there are only 2 boxes left.<br><br>
+		 	If you choose to accept,  you win the amount offered by the banker and the values in the remaining boxes are revealed.<br><br>
+		 	The object of the game is to win the largest amount.
+		</p>
+		<br><br><br>
+	</div>
+</div>
+</body>
+</html>

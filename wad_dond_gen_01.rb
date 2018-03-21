@@ -166,11 +166,20 @@ module DOND_Game
     end
 
     def openbox(guess)
-      box = guess.to_i
-      index = @sequence[box]
-      @output.puts "Value in box: #{index}"
-      @selectedboxes.push(box)
-      removeamount(box)
+      i = guess.to_i
+      for i in (0..21) do
+        s = ""
+        g = ""
+        b = i + 1
+        if g.openedboxes[i] == 0
+          s = "Closed"
+          g = "[#{b}]"
+        else
+          s = "Opened"
+          g = "|#{b}|"
+          end
+      end
+      @output.puts "\ni: #{i} Status: #{@game.openedboxes[i]} Status: #{s}"
     end
 
     def bankerphoneswithvalue(offer)
@@ -220,32 +229,3 @@ module DOND_Game
 
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
