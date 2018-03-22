@@ -4,6 +4,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'io/console'
+
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/wiki.db")
 class User
   include DataMapper::Resource
@@ -14,6 +15,7 @@ class User
 end
 
 DataMapper.finalize.auto_upgrade!
+
 
 set :port, 9001
 
@@ -37,16 +39,126 @@ helpers do
     end
   end
 end
+
+
+get '/' do
+
+  erb :home
+end
+
+get '/about' do
+
+  erb :about
+end
+
+get '/create' do
+
+  erb :create
+end
+
+get '/login' do
+  erb :login
+end
+
+post '/login' do
+  $credentials = [params[:username],params[:password]]
+  @users = User.first(:username => $credentials[0])
+  if @users
+    if @users.password == $credentials[1]
+      redirect '/'
+    else
+      $credentials = ['','']
+      redirect '/wrongaccount'
+    end
+  else
+    $credentials = ['','']
+    redirect '/wrongaccount'
+  end
+end
+
+get '/createaccount' do
+  erb :createaccount
+end
+
+post '/createaccount' do
+  u = User.first(:username => params[:username])
+  if u != nil
+    redirect '/usernametaken'
+  end
+  n = User.new
+  n.username = params[:username]
+  n.password = params[:password]
+  n.date_joined = Time.now
+  n.save
+  redirect '/login'
+end
+
+get '/profile' do
+
+  erb :profile
+end
+
+get '/newgame' do
+
+  erb :newgame
+end
+
+get '/usernametaken' do
+  erb :usernametaken
+end
+
+get '/wrongaccount' do
+  erb :wrongaccount
+end
+
+get '/user/:uzer' do
+  @userz = User.first(:username => params[:uzer])
+  if @userz != nil
+    erb :profile
+  else
+    redirect '/noaccount'
+  end
+end
+
+put '/user/:uzer' do
+  n = User.first(:username => params[:uzer])
+  n.save
+  redirect '/'
+end
+
+get '/logout' do
+  $credentials = ['','']
+  redirect '/'
+end
+
+get '/notfound' do
+  erb :notfound
+end
+
+get '/noaccount' do
+  erb :noaccount
+end
+
+get '/admindenied' do
+  erb :admindenied
+end
+
+get '/denied' do
+  erb :denied
+end
+
+not_found do
+  status 404
+  redirect '/notfound'
+end
 # The file where you are to write code to pass the tests must be present in the same folder.
 # See http://rspec.codeschool.com/levels/1 for help about RSpec
 require "#{File.dirname(__FILE__)}/wad_dond_gen_01"
 
 # Main program
 module DOND_Game
-  # @input = STDIN
-  # @output = STDOUT
-  @input = IO.pipe
-  @output = IO.pipe
+  @input = STDIN
+  @output = STDOUT
   g = Game.new(@input, @output)
   playing = true
   input = ""
@@ -96,17 +208,13 @@ module DOND_Game
 # Any code added to command line game should be added above.
 
     exit	# Does not allow command-line game to run code below relating to web-based version
-  elsif game == 2
 
 # End modules
 
 # Sinatra routes
-
 # Any code added to web-based game should be added below.
+  if game == "2"
 
-
-    get '/' do
-      erb :home
-    end
+  end
   end
 end
